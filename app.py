@@ -86,10 +86,21 @@ if st.button("Predict Cost"):
 
     prediction = model.predict(input_data)[0]
 
-    st.success(f"Estimated Cost: ₹{int(prediction)}")
+    st.markdown(f"## 💰 Estimated Cost: ₹{int(prediction)}")
     st.divider()
+    
+    cost_per_person = prediction / people
+    if cost_per_person < 3000:
+        st.success("💰 Budget Trip")
+    elif cost_per_person < 7000:
+        st.info("💸 Moderate Trip")
+    else:
+        st.warning("💎 Expensive Trip")
+        st.write("💡 Tip: Using bus or reducing days can lower cost")
+    st.write(f"👤 Cost per person: ₹{int(cost_per_person)}")
     # 🔥 EXPLANATION (NOW INSIDE BUTTON)
-    st.subheader("Why this cost?")
+    if cost_per_person>3000:
+        st.subheader("Why this cost?")
 
     if days > 2:
         st.write("📅 More days → higher stay & food cost")
@@ -98,16 +109,7 @@ if st.button("Predict Cost"):
         st.write("👨‍👩‍👧 More people → cost increases")
 
     if transport == "flight":
-        st.write("✈️ Flight → higher travel cost")
-    elif transport == "bus":
-        st.write("🚌 Bus → cheaper option")
+        st.write("🚨 Major cost driver: Flight travel")
 
     if hotel == "4-star":
-        st.write("🏨 Premium hotel increases cost")
-    elif hotel == "2-star":
-        st.write("🏨 Budget hotel keeps cost low")
-
-    if season == "peak":
-        st.write("📈 Peak season → higher demand → higher cost")
-    elif season == "off":
-        st.write("📉 Off season → lower prices")
+        st.write("🚨 Major cost driver: Premium hotel")

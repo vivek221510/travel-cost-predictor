@@ -68,7 +68,7 @@ if st.button("Predict Cost"):
     if source == destination:
         distance_km = 0
     else:
-        distance_km = get_distance(source, destination)
+        distance_km = 2*get_distance(source, destination)
 
     input_data = pd.DataFrame([{
         "source": source,

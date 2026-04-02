@@ -87,6 +87,7 @@ if st.button("Predict Cost"):
     prediction = model.predict(input_data)[0]
 
     st.markdown(f"💰 Estimated Cost: ₹{int(prediction)}")
+    
     st.divider()
     
     cost_per_person = prediction / people

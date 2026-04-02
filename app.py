@@ -21,6 +21,7 @@ distance_map = {
     ("Mumbai", "Goa"): 590,
     ("Mumbai", "Delhi"): 1400,
 }
+
 def get_distance(source, destination):
     if source == destination:
         return 0
@@ -42,7 +43,7 @@ people= st.number_input("number of people",min_value=1,max_value=5,value=2)
 
 transport = st.selectbox("Transport",["bus","train","flight"])
 hotel=st.selectbox("hotel type",["2-star","3-star","4-star"])
-season =st.selectbox("Season",["off","normal","peak"])
+
 
 if source == destination:
     st.error("Source and Destination cannot be the same")
@@ -55,7 +56,6 @@ st.write({
     "People": people,
     "Transport": transport,
     "Hotel": hotel,
-    "Season": season
 })
 
 st.title("Travel cost predictor")
@@ -78,7 +78,7 @@ if st.button("Predict Cost"):
         "people": people,
         "transport": transport,
         "hotel_type": hotel,
-        "season": season
+        
     }])
 
     input_data = pd.get_dummies(input_data)
@@ -86,7 +86,7 @@ if st.button("Predict Cost"):
 
     prediction = model.predict(input_data)[0]
 
-    st.markdown(f"## 💰 Estimated Cost: ₹{int(prediction)}")
+    st.markdown(f"💰 Estimated Cost: ₹{int(prediction)}")
     st.divider()
     
     cost_per_person = prediction / people
@@ -98,7 +98,7 @@ if st.button("Predict Cost"):
         st.warning("💎 Expensive Trip")
         st.write("💡 Tip: Using bus or reducing days can lower cost")
     st.write(f"👤 Cost per person: ₹{int(cost_per_person)}")
-    # 🔥 EXPLANATION (NOW INSIDE BUTTON)
+    
     if cost_per_person>3000:
         st.subheader("Why this cost?")
 
